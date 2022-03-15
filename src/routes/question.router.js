@@ -11,6 +11,15 @@ questionRouter.post("/adds", async function (req, res) {
     }
 });
 
+questionRouter.post("/updates", async function (req, res) {
+    let questions = req.body;
+    if(questions && questions.length > 0) {
+        res.status(200).json(await updateQuestions(questions));
+    } else {
+        res.status(400).json("400: Bad request");
+    }
+});
+
 questionRouter.post("/get-by-id", async function (req, res) {
     let { id } = req.body;
     if(id) {
