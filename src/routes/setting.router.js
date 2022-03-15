@@ -1,8 +1,8 @@
 const express = require("express");
 const { addSetting, getSetting, updateSetting } = require("../services/setting.service");
-const questionRouter = express.Router();
+const settingRouter = express.Router();
 
-questionRouter.post("/add", async function (req, res) {
+settingRouter.post("/add", async function (req, res) {
     let { setting } = req.body;
     if(setting) {
         res.status(200).json(await addSetting(setting));
@@ -11,7 +11,7 @@ questionRouter.post("/add", async function (req, res) {
     }
 });
 
-questionRouter.post("/update", async function (req, res) {
+settingRouter.post("/update", async function (req, res) {
     let { setting } = req.body;
     if(setting) {
         res.status(200).json(await updateSetting(setting));
@@ -20,7 +20,7 @@ questionRouter.post("/update", async function (req, res) {
     }
 });
 
-questionRouter.post("/get-setting", async function (req, res) {
+settingRouter.post("/get", async function (req, res) {
     let { userId } = req.body;
     if(userId) {
         res.status(200).json(await getSetting(userId));
@@ -29,4 +29,4 @@ questionRouter.post("/get-setting", async function (req, res) {
     }
 });
 
-module.exports = questionRouter;
+module.exports = settingRouter;
