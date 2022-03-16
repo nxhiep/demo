@@ -1,12 +1,26 @@
 const express = require("express");
 const Mathml2latex = require('mathml-to-latex');
 const mathRouter = express.Router();
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 mathRouter.post("/convert", async function (req, res) {
     const { content } = req.body;
     if(content) {
         try {
-            res.status(200).send("\\(" + Mathml2latex.convert(content) + "\\)");
+            const dom = new JSDOM(content);
+            let maths = dom.window.document.querySelectorAll('math');
+            if(maths.length > 0) {
+                for(let math of maths) {
+                    if(math.tagName.indexOf('math') > -1) {
+                        math.outerHTML = "\\(" + Mathml2latex.convert(math.outerHTML) + "\\)";
+                    }
+                }
+                res.status(200).send(dom.window.document.body.innerHTML);
+            } else {
+                return content;
+                res.status(200).send(content);
+            }
         } catch(e){
             res.status(500).send(e);
         }
