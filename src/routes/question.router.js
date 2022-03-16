@@ -1,5 +1,5 @@
 const express = require("express");
-const { addQuestions, getQuestionById, getQuestionsByUserId } = require("../services/question.service");
+const { addQuestions, getQuestionById, getQuestionsByUserId, updateQuestions } = require("../services/question.service");
 const questionRouter = express.Router();
 
 questionRouter.post("/adds", async function (req, res) {
