@@ -18,7 +18,6 @@ mathRouter.post("/convert", async function (req, res) {
                 }
                 res.status(200).send(dom.window.document.body.innerHTML);
             } else {
-                return content;
                 res.status(200).send(content);
             }
         } catch(e){
