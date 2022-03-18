@@ -27,8 +27,8 @@ const questionSchema = new Schema({
                 text: {
                     type: String
                 },
-                type: {
-                    type: String
+                weight: {
+                    type: Number
                 }
             }
         ],
